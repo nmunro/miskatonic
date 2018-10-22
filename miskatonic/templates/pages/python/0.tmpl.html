@@ -1,0 +1,66 @@
+{% extends 'pages/main.tmpl.html' %}
+
+{% block title %}{{ active|title }}{% endblock %}
+
+{% block content %}
+    <h2>Python Setup (2018)</h2>
+
+    <h4>Intro</h4>
+    <hr/>
+    <p>Setting up Python isn't always obvious, I've spoke to a few individuals, some people use Anaconda, I don't like it and don't recommend it (it's caused me so many issues), others setup Elipse with Python (I also do not like this), but us programmers are opinionated and I have my own way of doing things, however based on the research I've done, it appears to be a fairly reasonable and common approach.</p>
+
+    <p>These instructions are based on a Mac, however in my previous job where I had a Linux machine the instructions were similar, however these instructions assume you have installed <a href="https://brew.sh/">homebrew</a>, if you have not already done this, or are unfamiliar with homebrew, please read the website and install it, it is a prerequisite for the following instructions.</p>
+    <br/>
+
+    <h4>Installing Fish and Fisher (fish plugin manager)</h4>
+    <hr/>
+
+    <p>I use fish shell (not bash, csh or zsh) which does things a little different to other shells, so we'll install that first, for convenience we'll brew install all the tools we need first and configure them as we go:</p>
+    <pre class="code">
+[neilmunro@localhost: ~]$ brew install fish pyenv pipenv
+[neilmunro@localhost: ~]$ echo "/usr/local/bin/fish" | sudo tee -a /etc/shells
+[neilmunro@localhost: ~]$ chsh -s /usr/local/bin/fish
+[neilmunro@localhost: ~]$ echo "set PROFILE $HOME/.config/fish/config.fish"
+[neilmunro@localhost: ~]$ echo "set PATH $HOME/.local/bin $PATH" >> $HOME/.config/fish/config.fish</pre>
+
+    <p>This is the basic fish set up complete, however to continue with the tools we need we also need to install a fish shell plugin manager called 'fisher', please see the linked website above, but as of September 2018, the instructions to install fisher listed below.</p>
+
+    <p>The final part of configuring the shell is requiring that we install 'pipenv' from fisher (note that this is not the actual pipenv tool, it's just a fish shell wrapper around it), once we've done that we'll restart the shell.</p>
+
+    <pre class="code">[neilmunro@localhost: ~]$ curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
+[neilmunro@localhost: ~]$ fisher pipenv
+[neilmunro@localhost: ~]$ exec $SHELL</pre>
+    <br/>
+
+    <h4>Python Tools</h4>
+    <hr/>
+    <p>Before we begin, I always create a $HOME/Dev directory and keep all my code inside it, this is important on Linux systems that have programs by default that depend on the system default Python installation and one does not want to interfere with that, so keeping my code isolated in its own directory will protect me from hosing my own system.</p>
+    <p>The steps are as follows, install pyenv and pipenv via brew, use these to install a version of modern Python, and set the local folder to the version of Python you just installed.</p>
+
+    <p>Once we've installed and configured pyenv and pipenv we can now continue with building and setting a version of Python.</p>
+
+    <pre class="code">[neilmunro@localhost: ~]$ mkdir Dev && cd Dev
+[neilmunro@localhost: ~/Dev]$ echo "set PIPENV_VENV_IN_PROJECT 1" >> $PROFILE
+[neilmunro@localhost: ~/Dev]$ pyenv install 3.7.0
+[neilmunro@localhost: ~/Dev]$ pyenv local 3.7.0</pre>
+    <br/>
+
+    <h4>Installing pipsi (and other tools)</h4>
+    <hr/>
+    <p>Installing pipsi allows us to install programs that may not be available in brew, a very useful projects is cookiecutter! These are installed to $HOME/.local/bin (which is why we added it to our $PATH earlier).</p>
+    <pre class="code">[neilmunro@localhost: ~/Dev]$ curl https://raw.githubusercontent.com/mitsuhiko/pipsi/master/get-pipsi.py | python
+[neilmunro@localhost: ~/Dev]$ pipsi install cookiecutter</pre>
+    <br/>
+
+
+    <h4>References</h4>
+    <hr/>
+    <ol>
+        <li><a href="https://fishshell.com/">Fish shell</a></li>
+        <li><a href="https://github.com/jorgebucaran/fisher">Fisher</a></li>
+        <li><a href="https://github.com/pyenv/pyenv">PyEnv</a></li>
+        <li><a href="https://github.com/mitsuhiko/pipsi">Pipsi</a></li>
+        <li><a href="https://pipenv.readthedocs.io/en/latest/">Pipenv</a></li>
+    </ol>
+    <br/>
+{% endblock %}

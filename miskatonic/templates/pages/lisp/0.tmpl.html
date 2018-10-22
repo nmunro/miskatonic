@@ -1,0 +1,12 @@
+{% extends 'pages/main.tmpl.html' %}
+
+{% block title %}Welcome Friend...{% endblock %}
+
+{% block content %}
+    <h2>Legends of old...</h2>
+    <hr/>
+    <p>Come, sit, rest a while, I'm a programmer, a senior Python software engineer in fact, I seek enlightenment...</p>
+    <p>I had heard it said, you see, that the first ones, they had a language one that brings such enlightenment, well, to some, others it brings only madness. I set out on a quest to learn of this language and if you have the time to hear my tale you may find something useful in it.</p>
+    <p>It is, without a doubt, that what I tell of will seem to be little more than a pointless endeavour which will have cost much, but I am left with little choice. It called to me, it demanded that I embrace it, there was nothing I can do. I had to seek it out, I sensed a great enlightenment, but feared failure or madness. I gave pause a moment before I embarked, although such pauses were futile, for even as I considered not what I would learn, but whether should learn it, I understood I would go anyway. Madness and failure be damned! There was promise of great knowledge and I had to have it...</p>
+    <p>Please stay a while, make yourself comfortable, eat of my food, drink from my flask, and if you wish, <a href="{{ url_for('lisp.lisp_page', chapter=1) }}">hear my tale...</a></p>
+{% endblock %}

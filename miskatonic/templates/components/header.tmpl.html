@@ -1,0 +1,17 @@
+<header class="container-fluid masthead mb-auto">
+  <div class="row inner">
+    <div class="col-sm-3">
+      <h3 class="masthead-brand">{&nbsp;NMunro&nbsp;}</h3>
+    </div>
+    <div class="col-sm-6">
+      <h3>{{ active|title }}</h3>
+    </div>
+    <div class="col-sm-3">
+      <nav class="nav nav-masthead justify-content-center">
+        <a class="nav-link {% if active == 'home' %} active {% endif %}" href="/">Home</a>
+        <a class="nav-link {% if active.startswith('python') %} active {% endif %}" href="{{ url_for('python.python_page') }}">Python</a>
+        <a class="nav-link {% if active.startswith('lisp') %} active {% endif %}" href="{{ url_for('lisp.lisp_page') }}">Lisp</a>
+      </nav>
+    </div>
+  </div>
+</header>
