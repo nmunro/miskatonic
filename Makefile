@@ -11,7 +11,7 @@ test:
 	@pipenv run coverage run --branch -m unittest discover; pipenv run coverage html
 
 lint:
-	@pipenv run isort --virtual-env .venv miskatonic/*.py; pipenv run coala all
+	@pipenv run isort --virtual-env .venv miskatonic/*.py
 
 docs:
 	@sphinx-apidoc -o docs/source/ ../miskatonic/
