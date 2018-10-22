@@ -1,1 +1,1 @@
-web gunicorn miskatonic:app
+web gunicorn miskatonic.app:app
