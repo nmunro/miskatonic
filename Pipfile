@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 flask = "*"
 flask-sqlalchemy = "*"
+python-dotenv = "*"
+markdown = "*"
 
 [dev-packages]
 click = "==6.6"

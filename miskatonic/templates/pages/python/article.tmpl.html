@@ -1,0 +1,7 @@
+{% extends 'pages/main.tmpl.html' %}
+
+{% block title %}{{ active|title }}{% endblock %}
+
+{% block content %}
+    {{ content|safe }}
+{% endblock %}
