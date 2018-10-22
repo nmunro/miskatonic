@@ -8,6 +8,7 @@ flask = "*"
 flask-sqlalchemy = "*"
 python-dotenv = "*"
 markdown = "*"
+gunicorn = "*"
 
 [dev-packages]
 click = "==6.6"
