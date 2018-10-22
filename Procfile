@@ -1,1 +1,1 @@
-web gunicorn arkham:app
+web gunicorn miskatonic:app
