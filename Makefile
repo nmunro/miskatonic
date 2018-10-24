@@ -5,7 +5,7 @@ env:
 	@pipenv install --dev
 
 run:
-	@pipenv run flask run
+	@pipenv run gunicorn miskatonic.app:app
 
 test:
 	@pipenv run coverage run --branch -m unittest discover; pipenv run coverage html

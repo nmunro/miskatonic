@@ -27,5 +27,5 @@ def lisp_page(chapter: int = 1):
                 date=record[3],
             )
 
-    except (TemplateNotFound, sqlite3.OperationalError):
+    except (TypeError, TemplateNotFound, sqlite3.OperationalError):
         abort(404)

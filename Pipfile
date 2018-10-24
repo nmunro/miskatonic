@@ -5,15 +5,12 @@ name = "pypi"
 
 [packages]
 flask = "*"
-flask-sqlalchemy = "*"
 python-dotenv = "*"
 markdown = "*"
 gunicorn = "*"
 
 [dev-packages]
-click = "==6.6"
 coverage = "==4.5.1"
-isort = "==4.3.4"
 coala-bears = "==0.11.1"
 
 [requires]
