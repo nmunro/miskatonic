@@ -1,10 +1,9 @@
-import datetime
 import os
+import datetime
 
 from peewee import *
 
-
-db = SqliteDatabase('articles2.db')
+db = SqliteDatabase('articles.db')
 
 
 def create_tables():

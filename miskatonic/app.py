@@ -1,9 +1,9 @@
-from flask import Flask, abort, render_template, g
+from flask import Flask, g, abort, render_template
 from jinja2.exceptions import TemplateNotFound
 
+from .db import db, create_tables
 from .lisp import views as lisp_views
 from .python import views as python_views
-from .db import create_tables, db
 
 app = Flask(__name__)
 app.register_blueprint(python_views.python, url_prefix='/python')
