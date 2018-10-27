@@ -8,7 +8,10 @@ run:
 	@pipenv run gunicorn miskatonic.app:app
 
 test:
-	@pipenv run coverage run --branch -m unittest discover; pipenv run coverage html
+	@pipenv run coverage run --branch -m unittest discover  && pipenv run coverage html
+
+deploy:
+	@git push -u heroku master
 
 lint:
 	@pipenv run isort --virtual-env .venv miskatonic/*.py

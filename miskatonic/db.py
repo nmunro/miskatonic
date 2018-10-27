@@ -1,9 +1,9 @@
-import os
 import datetime
+import os
 
 from peewee import *
 
-db = SqliteDatabase('articles.db')
+db = SqliteDatabase(os.getenv('MISKATONIC_DB'))
 
 
 def create_tables():
