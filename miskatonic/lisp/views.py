@@ -6,26 +6,46 @@ from jinja2.exceptions import TemplateNotFound
 
 import markdown
 
-from ..db import open_db
+from ..db import Category, Article
 
 
 lisp = Blueprint('lisp', __name__, template_folder='templates')
 
 
 @lisp.route('/')
-@lisp.route('/<int:chapter>')
-def lisp_page(chapter: int = 1):
+def lisp_index():
     try:
-        with open_db() as cur:
-            record = cur.execute('SELECT * FROM lisp_articles WHERE id=?', (chapter,)).fetchone()
+        return render_template(
+            f'pages/articles.tmpl.html',
+            active='lisp:',
+            title='Lisp Articles',
+            articles=reversed(list(Article.select().where(Article.category == Category.get(Category.title == 'lisp')))),
+            category='lisp',
+        )
 
-            return render_template(
-                f'pages/lisp/article.tmpl.html',
-                active=f'lisp: {chapter}',
-                title=record[1],
-                content=markdown.markdown(record[2]),
-                date=record[3],
-            )
-
-    except (TypeError, TemplateNotFound, sqlite3.OperationalError):
+    except (Category.DoesNotExist, Article.DoesNotExist):
         abort(404)
+
+    except TemplateNotFound:
+        abort(500)
+
+
+@lisp.route('/<string:slug>')
+def lisp_page(slug: str):
+    try:
+        category = Category.get(Category.title == 'lisp')
+        article = Article.select().where(Article.category == category.id, Article.slug == slug).first()
+
+        return render_template(
+            f'pages/lisp/article.tmpl.html',
+            active=f'lisp: {article.title}',
+            title=article.title,
+            content=markdown.markdown(article.content),
+            date=article.date,
+        )
+
+    except (Category.DoesNotExist, Article.DoesNotExist):
+        abort(404)
+
+    except TemplateNotFound:
+        abort(500)

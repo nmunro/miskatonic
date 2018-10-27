@@ -6,26 +6,46 @@ from jinja2.exceptions import TemplateNotFound
 
 import markdown
 
-from ..db import open_db
+from ..db import Category, Article
 
 
 python = Blueprint('python', __name__, template_folder='templates')
 
 
 @python.route('/')
-@python.route('/<int:chapter>')
-def python_page(chapter: int = 1):
+def python_index():
     try:
-        with open_db() as cur:
-            record = cur.execute('SELECT * FROM python_articles WHERE id=?', (chapter,)).fetchone()
+        return render_template(
+            f'pages/articles.tmpl.html',
+            active='python:',
+            title='Python Articles',
+            articles=reversed(list(Article.select().where(Article.category == Category.get(Category.title == 'python')))),
+            category='python',
+        )
 
-            return render_template(
-                f'pages/python/article.tmpl.html',
-                active=f'python: {chapter}',
-                title=record[1],
-                content=markdown.markdown(record[2]),
-                date=record[3],
-            )
-
-    except (TypeError, TemplateNotFound, sqlite3.OperationalError):
+    except (Category.DoesNotExist, Article.DoesNotExist):
         abort(404)
+
+    except TemplateNotFound:
+        abort(500)
+
+
+@python.route('/<string:slug>')
+def python_page(slug: str):
+    try:
+        category = Category.get(Category.title == 'python')
+        article = Article.select().where(Article.category == category, Article.slug == slug).first()
+
+        return render_template(
+            f'pages/python/article.tmpl.html',
+            active=f'python: {article.title}',
+            title=article.title,
+            content=markdown.markdown(article.content),
+            date=article.date,
+        )
+
+    except (Category.DoesNotExist, Article.DoesNotExist):
+        abort(404)
+
+    except TemplateNotFound:
+        abort(500)

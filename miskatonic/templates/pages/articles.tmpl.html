@@ -1,0 +1,13 @@
+{% extends 'pages/main.tmpl.html' %}
+
+{% block title %}{{ category|title }} Articles{% endblock %}
+
+{% block content %}
+  <ul>
+    {% for article in articles %}
+      <h2><li><a href="/{{category}}/{{article.slug}}">{{article.title}}</a></li></h2>
+    {% else %}
+      <li><h2>No Articles</h2></li>
+    {% endfor %}
+</ul>
+{% endblock %}
