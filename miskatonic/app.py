@@ -1,8 +1,8 @@
 from flask import Flask, g, abort, render_template
 from jinja2.exceptions import TemplateNotFound
 
-from .config import Config
 from .db import db, create_tables
+from .config import Config
 from .modules.lisp.views import lisp
 from .modules.python.views import python
 
