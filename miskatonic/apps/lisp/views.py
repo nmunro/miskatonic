@@ -3,7 +3,7 @@ from jinja2.exceptions import TemplateNotFound
 
 import markdown
 
-from miskatonic.db import Category, Article
+from miskatonic.models import Category, Article
 
 
 lisp = Blueprint('lisp', __name__, template_folder='templates')

@@ -1,23 +1,10 @@
 import datetime
-import os
 
 from peewee import *
 
 from miskatonic.config import Config
 
-config = Config()
-
-
-def create_tables():
-    with config.db:
-        config.db.create_tables([Category, Article])
-
-
-class Category(Model):
-    title = CharField()
-
-    class Meta:
-        database = config.db
+from .category import Category
 
 
 class Article(Model):
@@ -28,7 +15,7 @@ class Article(Model):
     date = DateTimeField(default=datetime.datetime.now)
 
     class Meta:
-        database = config.db
+        database = Config.db
 
     def save(self, force_insert: bool = False, only = None):
         self.slug = self.title.replace(' ', '_').lower()

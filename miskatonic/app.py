@@ -1,10 +1,10 @@
 from flask import Flask, g, abort, render_template
 from jinja2.exceptions import TemplateNotFound
 
-from .db import db, create_tables
 from .config import Config
-from .modules.lisp.views import lisp
-from .modules.python.views import python
+from .apps.lisp.views import lisp
+from .apps.python.views import python
+from .models import Category, Article
 
 app = Flask(__name__)
 app.register_blueprint(lisp, url_prefix='/lisp')
@@ -13,7 +13,7 @@ app.register_blueprint(python, url_prefix='/python')
 
 @app.before_request
 def before_request():
-    g.db = Config().db
+    g.db = Config.db
     g.db.connect()
 
 
@@ -43,5 +43,7 @@ def index():
 
 
 if __name__ == '__main__':
-    create_tables()
+    with Config.db:
+        Config.db.create_tables([Category, Article])
+
     app.run()
