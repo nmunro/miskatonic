@@ -1,21 +1,23 @@
-import os
 import datetime
+import os
 
 from peewee import *
 
-db = SqliteDatabase(os.getenv('MISKATONIC_DB'))
+from miskatonic.config import Config
+
+config = Config()
 
 
 def create_tables():
-    with db:
-        db.create_tables([Category, Article])
+    with config.db:
+        config.db.create_tables([Category, Article])
 
 
 class Category(Model):
     title = CharField()
 
     class Meta:
-        database = db
+        database = config.db
 
 
 class Article(Model):
@@ -26,7 +28,7 @@ class Article(Model):
     date = DateTimeField(default=datetime.datetime.now)
 
     class Meta:
-        database = db
+        database = config.db
 
     def save(self, force_insert: bool = False, only = None):
         self.slug = self.title.replace(' ', '_').lower()

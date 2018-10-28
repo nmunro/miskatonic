@@ -1,18 +1,19 @@
 from flask import Flask, g, abort, render_template
 from jinja2.exceptions import TemplateNotFound
 
+from .config import Config
 from .db import db, create_tables
-from .lisp import views as lisp_views
-from .python import views as python_views
+from .modules.lisp.views import lisp
+from .modules.python.views import python
 
 app = Flask(__name__)
-app.register_blueprint(python_views.python, url_prefix='/python')
-app.register_blueprint(lisp_views.lisp, url_prefix='/lisp')
+app.register_blueprint(lisp, url_prefix='/lisp')
+app.register_blueprint(python, url_prefix='/python')
 
 
 @app.before_request
 def before_request():
-    g.db = db
+    g.db = Config().db
     g.db.connect()
 
 

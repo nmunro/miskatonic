@@ -1,12 +1,9 @@
-import sqlite3
-
 from flask import Blueprint, abort, render_template
-
 from jinja2.exceptions import TemplateNotFound
 
 import markdown
 
-from ..db import Category, Article
+from miskatonic.db import Category, Article
 
 
 lisp = Blueprint('lisp', __name__, template_folder='templates')
@@ -15,11 +12,13 @@ lisp = Blueprint('lisp', __name__, template_folder='templates')
 @lisp.route('/')
 def lisp_index():
     try:
+        acticles = list(Article.select().where(Article.category == Category.get(Category.title == 'lisp')))
+
         return render_template(
             f'pages/articles.tmpl.html',
             active='lisp:',
             title='Lisp Articles',
-            articles=reversed(list(Article.select().where(Article.category == Category.get(Category.title == 'lisp')))),
+            articles=reversed(acticles),
             category='lisp',
         )
 
