@@ -3,9 +3,9 @@ from flask_login import LoginManager
 from jinja2.exceptions import TemplateNotFound
 
 from .config import Config
-from .models import Article, Category, User
-from .apps.admin.views import admin
+from .models import User, Article, Category
 from .apps.lisp.views import lisp
+from .apps.admin.views import admin
 from .apps.python.views import python
 
 app = Flask(__name__)
