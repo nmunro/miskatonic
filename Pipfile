@@ -9,10 +9,13 @@ python-dotenv = "*"
 markdown = "*"
 gunicorn = "*"
 peewee = "*"
+flask-login = "*"
+flask-wtf = "*"
 
 [dev-packages]
 coverage = "==4.5.1"
 coala-bears = "==0.11.1"
+sphinx = "<1.5,>=1.3"
 
 [requires]
 python_version = "3.7"

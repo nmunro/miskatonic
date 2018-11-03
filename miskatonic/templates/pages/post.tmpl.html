@@ -1,0 +1,18 @@
+{% extends "pages/main.tmpl.html" %}
+
+{% block content %}
+    <h1>Post Article</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.title.label }}<br>
+            <span class="full-width">{{ form.title(size=32, class_="full-width") }}</span>
+        </p>
+        <p>
+            {{ form.content.label }}<br>
+            <span class="full-width">{{ form.content(class_="full-width", rows=15) }}</span>
+        </p>
+        <p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

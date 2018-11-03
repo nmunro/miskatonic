@@ -17,5 +17,5 @@ lint:
 	@pipenv run isort --virtual-env .venv miskatonic/*.py
 
 docs:
-	@sphinx-apidoc -o docs/source/ ../miskatonic/
+	@sphinx-apidoc -o docs/source/ miskatonic/
 	@cd docs && make html
