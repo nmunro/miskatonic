@@ -3,7 +3,7 @@ from flask_login import LoginManager
 from jinja2.exceptions import TemplateNotFound
 
 from .config import Config
-from .models import Article, Category, Person
+from .models import Person, Article, Category
 from .apps.lisp.views import lisp
 from .apps.admin.views import admin
 from .apps.python.views import python
