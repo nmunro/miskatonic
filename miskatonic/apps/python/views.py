@@ -20,7 +20,7 @@ def index():
             f'pages/articles.tmpl.html',
             active='python:',
             title='Python Articles',
-            articles=reversed(articles),
+            articles=sorted(articles, key=lambda x: x.date, reverse=True),
             category='python',
         )
 
@@ -74,3 +74,26 @@ def article(slug: str):
 
     except TemplateNotFound:
         abort(500)
+
+
+@python.route('/<string:slug>/edit', methods=['GET', 'POST'])
+@login_required
+def article_edit(slug: str):
+    article = Article.get(Article.slug == slug)
+    form = PythonArticleForm(title=article.title, content=article.content)
+
+    if request.method == 'GET':
+        return render_template(
+            'pages/post.tmpl.html',
+            title='Post',
+            form=form,
+            active=f'python:',
+        )
+
+    if form.validate_on_submit():
+        article.title = form.title.data
+        article.content = form.content.data
+        article.save()
+        return redirect(url_for('python.index'))
+
+    return redirect(url_for('index'))
