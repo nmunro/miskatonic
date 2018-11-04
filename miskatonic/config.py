@@ -1,8 +1,8 @@
 import os
 
-from peewee import SqliteDatabase
+from playhouse.db_url import connect
 
 
 class Config:
-    db = SqliteDatabase(f'{os.getenv("MISKATONIC_DB")}.db')
+    db = connect(os.getenv('DATABASE_URL'))
     SECRET_KEY = os.getenv('SECRET_KEY')

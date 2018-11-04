@@ -11,6 +11,7 @@ gunicorn = "*"
 peewee = "*"
 flask-login = "*"
 flask-wtf = "*"
+"psycopg2" = "*"
 
 [dev-packages]
 coverage = "==4.5.1"

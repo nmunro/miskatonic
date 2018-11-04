@@ -1,11 +1,8 @@
-from flask import Blueprint, abort, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required
-from jinja2.exceptions import TemplateNotFound
-
-import markdown
 
 from miskatonic.apps.admin.forms import LoginForm
-from miskatonic.models import User, Article, Category
+from miskatonic.models import Person
 
 
 admin = Blueprint('admin', __name__, template_folder='templates')
@@ -19,7 +16,7 @@ def login():
     form = LoginForm()
 
     if form.validate_on_submit():
-        user = User.select().where(User.username == form.username.data).first()
+        user = Person.select().where(Person.username == form.username.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
             return redirect(url_for('admin.login'))

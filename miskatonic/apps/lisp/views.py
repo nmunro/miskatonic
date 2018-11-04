@@ -14,7 +14,7 @@ lisp = Blueprint('lisp', __name__, template_folder='templates')
 @lisp.route('/')
 def index():
     try:
-        acticles = list(Article.select().where(Article.category == Category.get(Category.title == 'lisp')))
+        acticles = list(Article.select().where(Article.category_id == Category.get(Category.title == 'lisp')))
 
         return render_template(
             f'pages/articles.tmpl.html',
@@ -47,7 +47,7 @@ def new():
     if form.validate_on_submit():
         Article.create(
             title=form.title.data,
-            category=Category.get(Category.title == 'lisp'),
+            category_id=Category.get(Category.title == 'lisp'),
             content=form.content.data,
         )
         return redirect(url_for('lisp.index'))
@@ -59,7 +59,7 @@ def new():
 def article(slug: str):
     try:
         category = Category.get(Category.title == 'lisp')
-        article = Article.select().where(Article.category == category.id, Article.slug == slug).first()
+        article = Article.select().where(Article.category_id == category.id, Article.slug == slug).first()
 
         return render_template(
             f'pages/lisp/article.tmpl.html',

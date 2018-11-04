@@ -3,7 +3,7 @@ from flask_login import LoginManager
 from jinja2.exceptions import TemplateNotFound
 
 from .config import Config
-from .models import User, Article, Category
+from .models import Article, Category, Person
 from .apps.lisp.views import lisp
 from .apps.admin.views import admin
 from .apps.python.views import python
@@ -33,7 +33,7 @@ def after_request(response):
 
 @login.user_loader
 def load_user(uid):
-    return User.select().where(User.id == int(uid)).first()
+    return Person.select().where(Person.id == int(uid)).first()
 
 
 @app.errorhandler(401)
@@ -71,6 +71,6 @@ def index():
 
 if __name__ == '__main__':
     with Config.db:
-        Config.db.create_tables([Category, Article, User])
+        Config.db.create_tables([Category, Article, Person])
 
     app.run()

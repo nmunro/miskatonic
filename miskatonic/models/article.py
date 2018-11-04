@@ -10,7 +10,7 @@ from .category import Category
 class Article(Model):
     title = CharField()
     slug = CharField()
-    category = ForeignKeyField(Category, backref='articles')
+    category_id = ForeignKeyField(Category, backref='articles')
     content = TextField()
     date = DateTimeField(default=datetime.datetime.now)
 

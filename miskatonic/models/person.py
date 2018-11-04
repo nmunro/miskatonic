@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from miskatonic.config import Config
 
 
-class User(UserMixin, Model):
+class Person(UserMixin, Model):
     username = CharField()
     email = CharField()
     password_hash = CharField()

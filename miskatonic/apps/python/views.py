@@ -14,7 +14,7 @@ python = Blueprint('python', __name__, template_folder='templates')
 @python.route('/')
 def index():
     try:
-        articles = list(Article.select().where(Article.category == Category.get(Category.title == 'python')))
+        articles = list(Article.select().where(Article.category_id == Category.get(Category.title == 'python')))
 
         return render_template(
             f'pages/articles.tmpl.html',
@@ -47,7 +47,7 @@ def new():
     if form.validate_on_submit():
         Article.create(
             title=form.title.data,
-            category=Category.get(Category.title == 'python'),
+            category_id=Category.get(Category.title == 'python'),
             content=form.content.data,
         )
         return redirect(url_for('python.index'))
@@ -59,7 +59,7 @@ def new():
 def article(slug: str):
     try:
         category = Category.get(Category.title == 'python')
-        article = Article.select().where(Article.category == category, Article.slug == slug).first()
+        article = Article.select().where(Article.category_id == category, Article.slug == slug).first()
 
         return render_template(
             f'pages/python/article.tmpl.html',
