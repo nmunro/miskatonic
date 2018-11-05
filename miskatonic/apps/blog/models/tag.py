@@ -3,7 +3,7 @@ from peewee import *
 from miskatonic.config import Config
 
 
-class Category(Model):
+class Tag(Model):
     title = CharField()
 
     class Meta:

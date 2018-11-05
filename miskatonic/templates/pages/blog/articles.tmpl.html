@@ -1,0 +1,15 @@
+{% extends 'pages/main.tmpl.html' %}
+
+{% block title %}{{ title|title }}{% endblock %}
+
+{% block content %}
+  <ul>
+    {% for article in articles %}
+        <h2><li><a href="{{ url_for('blog.article', slug=article.slug) }}">
+            {{article.title}}
+        </a> | {{article.date.strftime('%Y-%m-%d')}}</li></h2>
+    {% else %}
+      <li><h2>No Articles</h2></li>
+    {% endfor %}
+</ul>
+{% endblock %}

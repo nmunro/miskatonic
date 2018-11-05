@@ -3,15 +3,14 @@ from flask_login import LoginManager
 from jinja2.exceptions import TemplateNotFound
 
 from .config import Config
-from .models import Person, Article, Category
-from .apps.lisp.views import lisp
+from .apps.admin.models import Person
 from .apps.admin.views import admin
-from .apps.python.views import python
+from .apps.blog.models import Article
+from .apps.blog.views import blog
 
 app = Flask(__name__)
 app.register_blueprint(admin, url_prefix='/admin')
-app.register_blueprint(lisp, url_prefix='/lisp')
-app.register_blueprint(python, url_prefix='/python')
+app.register_blueprint(blog, url_prefix='/blog')
 
 login = LoginManager()
 login.init_app(app)
@@ -71,6 +70,6 @@ def index():
 
 if __name__ == '__main__':
     with Config.db:
-        Config.db.create_tables([Category, Article, Person])
+        Config.db.create_tables([Article, Person])
 
     app.run()

@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required
 
 from miskatonic.apps.admin.forms import LoginForm
-from miskatonic.models import Person
+from .models import Person
 
 
 admin = Blueprint('admin', __name__, template_folder='templates')

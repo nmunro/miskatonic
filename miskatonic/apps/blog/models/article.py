@@ -4,13 +4,10 @@ from peewee import *
 
 from miskatonic.config import Config
 
-from .category import Category
-
 
 class Article(Model):
     title = CharField()
     slug = CharField()
-    category_id = ForeignKeyField(Category, backref='articles')
     content = TextField()
     date = DateTimeField(default=datetime.datetime.now)
 

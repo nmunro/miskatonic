@@ -1,2 +1,2 @@
-from .lisp import *
-from .python import *
+from .admin import *
+from .blog import *

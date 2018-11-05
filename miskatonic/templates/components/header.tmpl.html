@@ -9,8 +9,7 @@
     <div class="col-sm-3">
       <nav class="nav nav-masthead justify-content-center">
         <a class="nav-link {% if active == 'home' %} active {% endif %}" href="/">Home</a>
-        <a class="nav-link {% if active.startswith('python') %} active {% endif %}" href="{{ url_for('python.index') }}">Python</a>
-        <a class="nav-link {% if active.startswith('lisp') %} active {% endif %}" href="{{ url_for('lisp.index') }}">Lisp</a>
+        <a class="nav-link {% if active.startswith('blog') %} active {% endif %}" href="{{ url_for('blog.index') }}">Blog</a>
       </nav>
     </div>
   </div>
