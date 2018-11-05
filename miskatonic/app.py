@@ -3,10 +3,10 @@ from flask_login import LoginManager
 from jinja2.exceptions import TemplateNotFound
 
 from .config import Config
-from .apps.admin.models import Person
+from .apps.blog.views import blog
 from .apps.admin.views import admin
 from .apps.blog.models import Article
-from .apps.blog.views import blog
+from .apps.admin.models import Person
 
 app = Flask(__name__)
 app.register_blueprint(admin, url_prefix='/admin')
