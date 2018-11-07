@@ -1,20 +1,23 @@
-.PHONY: env run tests docs
+.PHONY: env run requires tests docs
 .DEFAULT: env
 
 env:
-	@pipenv install --dev
+	@poetry install
 
 run:
-	@pipenv run gunicorn miskatonic.app:app
+	@source .env && poetry run gunicorn miskatonic.app:app
 
 test:
-	@pipenv run coverage run --branch -m unittest discover  && pipenv run coverage html
+	@source .env && poetry run coverage run --branch -m unittest discover && poetry run coverage html
 
-deploy:
+requires:
+	@source .env && poetry run pip freeze | sed '/-e /d' | sed '/miskatonic/d' > requirements.txt
+
+deploy: requires
 	@git push -u heroku master
 
 lint:
-	@pipenv run isort --virtual-env .venv miskatonic/*.py
+	@source .env && poetry run isort --virtual-env .venv miskatonic/*.py
 
 docs:
 	@sphinx-apidoc -o docs/source/ miskatonic/

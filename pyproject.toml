@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "miskatonic"
+version = "2018.10"
+description = "My personal blog"
+authors = ["Neil Munro <neilmunro@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+flask = "^1.0"
+markdown = "^3.0"
+gunicorn = "^19.9"
+peewee = "^3.7"
+flask-login = "^0.4"
+flask-wtf = "^0.14"
+psycopg2 = "^2.7"
+python-dotenv = "^0.9.1"
+
+
+[tool.poetry.dev-dependencies]
+coverage = "4.5.1"
+coala-bears = "0.11.1"
+sphinx = "<1.5,>=1.3"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
