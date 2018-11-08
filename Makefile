@@ -1,4 +1,4 @@
-.PHONY: env run requires tests docs
+.PHONY: env run deploy lint tests docs
 .DEFAULT: env
 
 env:
@@ -10,10 +10,7 @@ run:
 test:
 	@source .env && poetry run coverage run --branch -m unittest discover && poetry run coverage html
 
-requires:
-	@source .env && poetry run pip freeze | sed '/-e /d' | sed '/miskatonic/d' > requirements.txt
-
-deploy: requires
+deploy:
 	@git push -u heroku master
 
 lint:
