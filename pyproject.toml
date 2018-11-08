@@ -8,13 +8,13 @@ license = "MIT"
 [tool.poetry.dependencies]
 python = "^3.7"
 flask = "^1.0"
-markdown = "^3.0"
 gunicorn = "^19.9"
 peewee = "^3.7"
 flask-login = "^0.4"
 flask-wtf = "^0.14"
 psycopg2 = "^2.7"
 python-dotenv = "^0.9.1"
+markdown = "^3.0"
 
 
 [tool.poetry.dev-dependencies]
