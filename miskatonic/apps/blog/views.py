@@ -51,6 +51,7 @@ def new():
     except TemplateNotFound:
         abort(500)
 
+
 @blog.route('/<string:slug>')
 def article(slug: str):
     try:

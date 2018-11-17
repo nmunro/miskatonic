@@ -1,5 +1,5 @@
 from flask_login import UserMixin
-from peewee import *
+from peewee import Model, CharField
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from miskatonic.config import Config

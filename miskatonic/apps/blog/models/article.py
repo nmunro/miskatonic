@@ -1,6 +1,7 @@
+from typing import List
 import datetime
 
-from peewee import *
+from peewee import Model, CharField, TextField, DateTimeField
 
 from miskatonic.config import Config
 
@@ -14,6 +15,6 @@ class Article(Model):
     class Meta:
         database = Config.db
 
-    def save(self, force_insert: bool = False, only = None):
+    def save(self, force_insert: bool = False, only: List = None):
         self.slug = self.title.replace(' ', '_').lower()
         super().save()

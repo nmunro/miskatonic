@@ -17,7 +17,7 @@ deploy:
 	@git push -u heroku master
 
 lint:
-	@source .env && poetry run isort --virtual-env .venv miskatonic/*.py
+	@source .env && poetry run isort --virtual-env .venv miskatonic/*.py && poetry run flake8
 
 docs:
 	@sphinx-apidoc -o docs/source/ miskatonic/

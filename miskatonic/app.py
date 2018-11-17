@@ -1,12 +1,12 @@
-from flask import Flask, g, abort, render_template
+from flask import Flask, abort, g, render_template
 from flask_login import LoginManager
 from jinja2.exceptions import TemplateNotFound
 
-from .config import Config
-from .apps.blog.views import blog
+from .apps.admin.models import Person
 from .apps.admin.views import admin
 from .apps.blog.models import Article
-from .apps.admin.models import Person
+from .apps.blog.views import blog
+from .config import Config
 
 app = Flask(__name__)
 app.register_blueprint(admin, url_prefix='/admin')
@@ -36,7 +36,7 @@ def load_user(uid):
 
 
 @app.errorhandler(401)
-def not_found(error):
+def unauthorized(error):
     """
     Generic 401 server error view
     """

@@ -1,2 +1,2 @@
-from .admin import *
-from .blog import *
+from .admin import *  # noqa
+from .blog import *  # noqa

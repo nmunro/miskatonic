@@ -1,7 +1,0 @@
-[all]
-bears = PEP8Bear, SpaceConsistencyBear, PyUnusedCodeBear
-files = **/*.py
-ignore = .venv/**, docs/**, tests/**
-use_spaces = True
-max_line_length = 120
-editor = vi

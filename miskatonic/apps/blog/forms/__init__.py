@@ -1,1 +1,1 @@
-from .article_form import *
+from .article_form import *  # noqa

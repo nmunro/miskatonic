@@ -1,4 +1,4 @@
-click==6.6
+click==7.0
 flask==1.0.2
 flask-login==0.4.1
 flask-wtf==0.14.2
@@ -8,7 +8,7 @@ jinja2==2.10
 markdown==3.0.1
 markupsafe==1.1.0
 peewee==3.7.1
-psycopg2==2.7.5
+psycopg2==2.7.6.1
 python-dotenv==0.9.1
 werkzeug==0.14.1
 wtforms==2.2.1

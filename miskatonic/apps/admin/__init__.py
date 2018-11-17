@@ -1,2 +1,2 @@
-from .models import Person
-from .views import admin
+from .models import Person  # noqa
+from .views import admin  # noqa

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for
+from flask import Blueprint, flash, render_template, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required
 
 from miskatonic.apps.admin.forms import LoginForm
