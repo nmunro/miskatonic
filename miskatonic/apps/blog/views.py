@@ -31,27 +31,30 @@ def index():
 @blog.route('/new', methods=['GET', 'POST'])
 @login_required
 def new():
-    form = ArticleForm()
+    try:
+        form = ArticleForm()
 
-    if request.method == 'GET':
-        return render_template(
-            'pages/blog/article.tmpl.html',
-            title='Post Article',
-            form=form,
-            active=f'blog:',
-        )
+        if request.method == 'GET':
+            return render_template(
+                'pages/blog/article.tmpl.html',
+                title='Post Article',
+                form=form,
+                active=f'blog:',
+            )
 
-    if form.validate_on_submit():
-        Article.create(title=form.title.data, content=form.content.data)
-        return redirect(url_for('blog.index'))
+        if form.validate_on_submit():
+            Article.create(title=form.title.data, content=form.content.data)
+            return redirect(url_for('blog.index'))
 
-    return redirect(url_for('index'))
+        return redirect(url_for('index'))
 
+    except TemplateNotFound:
+        abort(500)
 
 @blog.route('/<string:slug>')
 def article(slug: str):
     try:
-        article = Article.select().where(Article.slug == slug).first()
+        article = Article.get(Article.slug == slug)
 
         return render_template(
             f'pages/blog/article.tmpl.html',
@@ -71,31 +74,39 @@ def article(slug: str):
 @blog.route('/<string:slug>/edit', methods=['GET', 'POST'])
 @login_required
 def article_edit(slug: str):
-    article = Article.get(Article.slug == slug)
-    form = ArticleForm(title=article.title, content=article.content)
+    try:
+        article = Article.get(Article.slug == slug)
 
-    if request.method == 'GET':
-        return render_template(
-            'pages/blog/article.tmpl.html',
-            title=f'Edit: {article.title}',
-            form=form,
-            active=f'blog:',
-        )
+        form = ArticleForm(title=article.title, content=article.content)
 
-    if form.validate_on_submit():
-        if form.submit.data:
-            article.title = form.title.data
-            article.content = form.content.data
-            article.save()
-            return redirect(url_for('blog.article', slug=article.slug))
+        if request.method == 'GET':
+            return render_template(
+                'pages/blog/article.tmpl.html',
+                title=f'Edit: {article.title}',
+                form=form,
+                active=f'blog:',
+            )
 
-        if form.delete.data:
-            try:
-                article.delete_instance()
+        if form.validate_on_submit():
+            if form.submit.data:
+                article.title = form.title.data
+                article.content = form.content.data
+                article.save()
+                return redirect(url_for('blog.article', slug=article.slug))
 
-            except Exception:
-                pass
+            if form.delete.data:
+                try:
+                    article.delete_instance()
 
-            return redirect(url_for('blog.index'))
+                except Exception:
+                    pass
 
-    return redirect(url_for('blog.article', slug=article.slug))
+                return redirect(url_for('blog.index'))
+
+        return redirect(url_for('blog.article', slug=article.slug))
+
+    except Article.DoesNotExist:
+        abort(404)
+
+    except TemplateNotFound:
+        abort(500)
