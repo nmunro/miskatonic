@@ -1,5 +1,6 @@
 from typing import List
 import datetime
+import string
 
 from peewee import Model, CharField, TextField, DateTimeField
 
@@ -16,5 +17,6 @@ class Article(Model):
         database = Config.db
 
     def save(self, force_insert: bool = False, only: List = None):
-        self.slug = self.title.replace(' ', '_').lower()
+        fn = lambda c: c.lower() if c.lower() in [*string.ascii_lowercase, *string.digits] else '_'
+        self.slug = ''.join(map(fn, self.title)).lower()
         super().save()
