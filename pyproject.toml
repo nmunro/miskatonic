@@ -15,6 +15,7 @@ flask-wtf = "^0.14"
 psycopg2 = "^2.7"
 python-dotenv = "^0.9.1"
 markdown = "^3.0"
+flask-paginate = "^0.5.1"
 
 
 [tool.poetry.dev-dependencies]
